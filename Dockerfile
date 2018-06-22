@@ -7,7 +7,7 @@ USER root
 
 # Copy assets
 WORKDIR /opt
-COPY . .
+COPY versions.list .
 
 # Install various prerequisites
 RUN apt-get update \
