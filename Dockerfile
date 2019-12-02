@@ -31,7 +31,7 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js & npm
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash - \
   && apt-get update \
   && apt-get install -y --no-install-recommends nodejs \
   && apt-get clean \
@@ -62,7 +62,7 @@ RUN git clone https://github.com/rbenv/rbenv.git --depth 1 $RBENV_ROOT \
   && echo 'source $HOME/rbenv.sh' > /home/user/.bashrc
 
 # Install multiple versions of ruby
-ENV CONFIGURE_OPTS --disable-install-doc
+ARG CONFIGURE_OPTS=--disable-install-doc
 RUN xargs -L 1 rbenv install < /opt/versions.list
 
 # Install Bundler for each version of ruby
