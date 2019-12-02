@@ -9,6 +9,10 @@ Ruby Build Environment is based on latest Ubuntu LTS and is suitable for buildin
 
 * Ruby-based apps
 
+## Versions
+
+Includes specific version of every minor release.
+
 ## Notes
 
-* Does not include Ruby < 2.4, since those depend on `libssl1.0-dev`
+* Does not include Ruby version prior to 2.4, since those depend on `libssl1.0-dev`

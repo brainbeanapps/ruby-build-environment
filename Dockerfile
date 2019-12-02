@@ -1,9 +1,13 @@
-FROM brainbeanapps/base-linux-build-environment:latest
+FROM brainbeanapps/base-linux-build-environment:v3.0
 
 LABEL maintainer="devops@brainbeanapps.com"
 
 # Switch to root
 USER root
+
+# Set shell as non-interactive during build
+# NOTE: This is discouraged in general, yet we're using it only during image build
+ARG DEBIAN_FRONTEND=noninteractive
 
 # Copy assets
 WORKDIR /opt
@@ -11,12 +15,23 @@ COPY versions.list .
 
 # Install various prerequisites
 RUN apt-get update \
-  && apt-get install -y --no-install-recommends zlib1g-dev libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev \
+  && apt-get install -y --no-install-recommends \
+    zlib1g-dev \
+    libssl-dev \
+    libreadline-dev \
+    libyaml-dev \
+    libsqlite3-dev \
+    sqlite3 \
+    libxml2-dev \
+    libxslt1-dev \
+    libcurl4-openssl-dev \
+    software-properties-common \
+    libffi-dev \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
 # Install Node.js & npm
-RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - \
+RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
   && apt-get update \
   && apt-get install -y --no-install-recommends nodejs \
   && apt-get clean \
